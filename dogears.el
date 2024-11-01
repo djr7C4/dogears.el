@@ -246,9 +246,11 @@ context.  PLACE should be a bookmark record."
                                      (cl-remove-if (lambda (place)
                                                      (string-empty-p (dogears--relevance place)))
                                                    list))))
+                      (fmt-str (format "%%%ds: %%s" (1+ (floor (log10 dogears-limit)))))
                       (collection (cl-loop for i from 0
                                            for place in (funcall filter-fn dogears-list)
-                                           for key = (format "%2.2s: %s"i
+                                           for key = (format fmt-str
+                                                             i
                                                              (dogears--format-record place))
                                            collect (cons key place)))
                       ;; TODO: Disable completion sorting (so they're always in order). 
