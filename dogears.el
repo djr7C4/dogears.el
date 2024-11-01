@@ -252,7 +252,14 @@ context.  PLACE should be a bookmark record."
                                                              (dogears--format-record place))
                                            collect (cons key place)))
                       ;; TODO: Disable completion sorting (so they're always in order). 
-                      (choice (completing-read "Place: " collection nil t)))
+                      (choice (completing-read "Place: "
+                                               (lambda (string predicate action)
+                                                 (if (eq action 'metadata)
+                                                     `(metadata (display-sort-function . ,#'identity)
+                                                                (cycle-sort-function . ,#'identiry))
+                                                   (complete-with-action action collection string predicate)))
+                                               nil
+                                               t)))
                  (list (alist-get choice collection nil nil #'equal))))
   (or (ignore-errors
         (bookmark-jump place))
