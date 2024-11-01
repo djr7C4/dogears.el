@@ -255,7 +255,8 @@ context.  PLACE should be a bookmark record."
                       (choice (completing-read "Place: " collection nil t)))
                  (list (alist-get choice collection nil nil #'equal))))
   (or (ignore-errors
-        (bookmark-jump place))
+        (let (bookmark-fringe-mark)
+          (bookmark-jump place)))
       (when-let ((buffer (map-elt (cdr place) 'buffer)))
         (when (stringp buffer)
           (setf buffer (get-buffer buffer)))
