@@ -256,7 +256,7 @@ context.  PLACE should be a bookmark record."
                                                (lambda (string predicate action)
                                                  (if (eq action 'metadata)
                                                      `(metadata (display-sort-function . ,#'identity)
-                                                                (cycle-sort-function . ,#'identiry))
+                                                                (cycle-sort-function . ,#'identity))
                                                    (complete-with-action action collection string predicate)))
                                                nil
                                                t)))
